@@ -36,7 +36,7 @@ int main() {
 
 	for (int i=0; i<cases; i++) {
 
-		stable_sort(score_board.begin(), score_board.end(), eval);
+		sort(score_board.begin(), score_board.end(), eval);
 
 		for (vector<pair<int,pair<int,int>>>::iterator it=score_board.begin(); it!=score_board.end(); it++) {
 			cout << it->first << 

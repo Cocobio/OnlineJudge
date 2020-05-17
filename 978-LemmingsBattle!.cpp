@@ -17,16 +17,18 @@ Análisis asintótico de la solución: Se deberá consignar el costo (en notaci�
 
 using namespace std;
 
+// In wars there are no real winners
 void announceWinner(string msg, priority_queue<char> &fighters) {
 	cout << msg << endl;
 
 	while (!fighters.empty()) {
-		cout << (int)fighters.top() << endl;
-		fighters.pop();
+		cout << (int)fighters.top() << endl;	// O(1)
+		fighters.pop();							// O(log(n))
 	}
 }
 
-void fight(char &green, char &blue) {
+// Getting savage!
+void fight(char &green, char &blue) {			// O(1)
 	if (green < blue) {
 		blue -= green;
 		green = 0;
@@ -70,20 +72,20 @@ int main() {
 		}
 
 		// FIGHT TO THE DEAD!
-		while (green_team.size()!=0 && blue_team.size()!=0) {
+		while (green_team.size()!=0 && blue_team.size()!=0) {	// At maximun (SG+SB)/B
 			// It populates the battlefields
 			for (int j=0; j<B; j++) {
-				if (green_team.empty() || blue_team.empty()) break;
+				if (green_team.empty() || blue_team.empty()) break;	// O(1)
 
-				green_fighter = green_team.top();
-				blue_fighter = blue_team.top();
+				green_fighter = green_team.top();	// O(1)
+				blue_fighter = blue_team.top();		// O(1)
 
-				green_team.pop();
-				blue_team.pop();
+				green_team.pop();	// O(log(n))
+				blue_team.pop();	// O(log(n))
 
-				fight(green_fighter, blue_fighter);
+				fight(green_fighter, blue_fighter);	// O(1)
 
-				battlefield.push_back(make_pair(green_fighter,blue_fighter));
+				battlefield.push_back(make_pair(green_fighter,blue_fighter));	// O(log(n))
 			}
 
 			// Check for survivors! If found, get them to safety, so they can experience the horrors on the battlefield again (if need it)
