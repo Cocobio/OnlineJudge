@@ -21,13 +21,13 @@ using namespace std;
 
 class Register {
 public:
-	short id;
+	unsigned short id;
 	unsigned step;
 	unsigned next_pop;
 
 	Register() {}
 
-	Register(short id, unsigned step, unsigned next_pop) {
+	Register(unsigned short id, unsigned step, unsigned next_pop) {
 		this->id = id;
 		this->step = step;
 		this->next_pop = next_pop;
@@ -44,8 +44,8 @@ int main() {
 
 	// Input data
 	string word;
-	short id;
-	unsigned int step;
+	unsigned short id;
+	unsigned step;
 	int K;
 
 	cin >> word;
@@ -60,7 +60,7 @@ int main() {
 	for (int i=0; i<K; i++) {
 		tmpReg = Argus_query.top();
 		Argus_query.pop();
-		cout << tmpReg.id << "\t" << tmpReg.next_pop << endl;
+		cout << tmpReg.id << endl;
 
 		tmpReg.next_pop += tmpReg.step;
 		Argus_query.push(tmpReg);
