@@ -10,37 +10,78 @@ Análisis asintótico de la solución: Se deberá consignar el costo (en notaci�
 
 */
 
+#define N_PROBLEMS 9
+
 #include <iostream>
 #include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <vector>
+#include <array>
+#include <sstream>
 
 using namespace std;
+
+bool eval(pair<int,pair<int,int>> a, pair<int,pair<int,int>> b) {
+	return a.second.first>b.second.first || (a.second.first==b.second.first && (a.second.second<b.second.second || (a.second.second==b.second.second && a.first<b.first)));
+};
 
 int main() {
 	int cases;
 	char c;
+	int contestant_id, problem_id;
+	int time;
 
-	cin >> cases;
-	cin >> c;
-
-	vector
+	// <id, advances on problems>
+	unordered_map<short,array<int,N_PROBLEMS>> problems_student;
+	array<int,N_PROBLEMS> problems_tmp;
 
 	// id, score
-	vector<pair<int,pair<int,int>>> score_board;
+	map<int,pair<int,int>> score_board;
+	vector<pair<int,pair<int,int>>> sorting_container;
+
 	
-	// a sera mayor cuando
-	// a tenga mayor puntaje o, tengan el mismo puntaje y tenga menos tiempo, o tengan el mismo puntaje, mismo tiempo y su id sea menor que el de b
-	// a>b || (a=b && (( a.time<b.time) || ( a.time=b.time && a.id<b.id))
-	bool eval(pair<int,pair<int,int>> a, pair<int,pair<int,int>> b) {
-		return a.second.first>b.second || (a.second.first==b.second.first && (a.second.second<b.second.second || (a.second.second==b.second.second && a.first<b.first)));
-	};
+
+	string s_stream;
+
+	// Read cases, then 
+	cin >> cases;
+	getline(cin, s_stream);
 
 	for (int i=0; i<cases; i++) {
 
-		sort(score_board.begin(), score_board.end(), eval);
+		// Each case
+		while (getline(cin, s_stream) && s_stream.size()!=1) {
+			stringstream s(s_stream);
+			s >> contestant_id >> problem_id >> time >> c;
 
-		for (vector<pair<int,pair<int,int>>>::iterator it=score_board.begin(); it!=score_board.end(); it++) {
-			cout << it->first << 
-		} 
+			if (score_board.find(contestant_id)==score_board.end()) {
+				score_board.emplace(contestant_id, make_pair(0,0));
+				array<int,N_PROBLEMS> problems_tmp;
+				problems_tmp.fill(0);
+
+				problems_student[contestant_id] = problems_tmp;
+			}
+			
+			if (c == 'C') {
+				score_board[contestant_id].first += 1;
+				score_board[contestant_id].second += problems_student[contestant_id][problem_id-1] + time;
+			}
+
+			else if (c == 'I') {
+				problems_student[contestant_id][problem_id-1] += 20;
+			}
+		}
+		
+		for (auto it=score_board.begin(); it!=score_board.end(); it++)
+			sorting_container.push_back(*it);
+
+		sort(sorting_container.begin(), sorting_container.end(), eval);
+
+		for (auto it=sorting_container.begin(); it!=sorting_container.end(); it++)
+			cout << it->first << " " << it->second.first << " " << it->second.second << endl; 
+
+		sorting_container.clear();
 	}
 
 	return 0;
