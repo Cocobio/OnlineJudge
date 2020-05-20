@@ -10,7 +10,36 @@ Análisis asintótico de la solución: Se deberá consignar el costo (en notaci�
 
 */
 #include <iostream>
+#include <list>
+#include <string>
+
+using namespace std;
 
 int main() {
+	string input_line;
+	list<char> input_text;
+	string beiju_output;
+
+	list<char>::iterator text_position = input_text.begin();
+
+	char home_button = '[';
+	char end_button = ']';
+
+	while (getline(cin, input_line)) {
+		for (auto it=input_line.begin(); it!=input_line.end(); it++) {
+			if (*it == home_button)
+				text_position = input_text.begin();
+			else if (*it == end_button)
+				text_position = input_text.end();
+			else
+				input_text.insert(text_position, *it);
+		}
+
+		beiju_output = string(input_text.begin(), input_text.end());
+		cout << beiju_output << endl;
+
+		input_text.clear();
+	}
+
 	return 0;
 }
