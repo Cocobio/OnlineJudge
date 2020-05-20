@@ -64,6 +64,7 @@ int main() {
 
 		// clear containers
 		combinations.clear();
+		concurrencies = priority_queue<short>();
 
 	}
 
