@@ -53,13 +53,13 @@ int main() {
 
 	short N;
 	short tmp;
-	bool first_it = true;
-	
+	bool not_the_first_it = false;
+
 	// crear linea A al momento de leer N y luego iterar sobre ella. De esta forma no la creo de manera inicesaria todas las veces
 	while (cin >> N && N!=0) {
-		if (first_it) {
+		if (not_the_first_it) {
 			cout << endl;
-			first_it = false;
+			not_the_first_it = true;
 		}
 		// It initializes the in line
 		for (int i=1; i<=N; i++)
