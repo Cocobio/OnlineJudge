@@ -90,7 +90,7 @@ int main() {
 		score_board.clear();
 		problems_student.clear();
 		sorting_container.clear();
-		if (i!=0 || i!=cases) cout << endl;
+		if (i!=0 && i!=cases) cout << endl;
 	}
 
 	return 0;
