@@ -49,12 +49,12 @@ int main() {
 	// Read cases, then 
 	cin >> cases;
 	// Read empty line
-	getline(cin, s_stream);
+	while(getline(cin, s_stream) && s_stream.size() != 0) {}
 
 	for (int i=0; i<cases; i++) {
 
 		// Each case
-		while (getline(cin, s_stream) && s_stream.size()!=0) {
+		do {
 			stringstream s(s_stream);
 			s >> contestant_id >> problem_id >> time >> c;
 
@@ -77,7 +77,7 @@ int main() {
 			else if (c == 'I') {
 				problems_student[contestant_id][problem_id-1] += 20;
 			}
-		}
+		} while (getline(cin, s_stream) && s_stream.size()!=0);
 		
 		for (auto it=score_board.begin(); it!=score_board.end(); it++)
 			sorting_container.push_back(*it);
