@@ -66,9 +66,12 @@ int main() {
 				problems_student[contestant_id] = problems_tmp;
 			}
 			
-			if (c == 'C') {
+			if (problems_student[contestant_id][problem_id-1] == -1) continue;
+
+			else if (c == 'C') {
 				score_board[contestant_id].first += 1;
 				score_board[contestant_id].second += problems_student[contestant_id][problem_id-1] + time;
+				problems_student[contestant_id][problem_id-1] = -1;
 			}
 
 			else if (c == 'I') {
