@@ -53,8 +53,14 @@ int main() {
 
 	short N;
 	short tmp;
+	bool first_it = true;
+	
 	// crear linea A al momento de leer N y luego iterar sobre ella. De esta forma no la creo de manera inicesaria todas las veces
 	while (cin >> N && N!=0) {
+		if (first_it) {
+			cout << endl;
+			first_it = false;
+		}
 		// It initializes the in line
 		for (int i=1; i<=N; i++)
 			line_a.push_back(i);
@@ -72,9 +78,9 @@ int main() {
 
 			// If the 
 			if (line_b.size() == N)
-				cout << "YES" << endl;
+				cout << "Yes" << endl;
 			else 
-				cout << "NO" << endl;
+				cout << "No" << endl;
 
 			// It cleans all the containers
 			line_b.clear();
@@ -83,7 +89,6 @@ int main() {
 		
 		line_a.clear();
 
-		cout << endl;
 	}
 
 	return 0;
