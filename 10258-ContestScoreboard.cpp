@@ -85,6 +85,7 @@ int main() {
 			cout << it->first << " " << it->second.first << " " << it->second.second << endl; 
 
 		sorting_container.clear();
+		cout << endl;
 	}
 
 	return 0;
