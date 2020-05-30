@@ -87,6 +87,7 @@ int main() {
 		for (auto it=sorting_container.begin(); it!=sorting_container.end(); it++)
 			cout << it->first << " " << it->second.first << " " << it->second.second << endl; 
 
+		problems_student.clear();
 		sorting_container.clear();
 		cout << endl;
 	}
