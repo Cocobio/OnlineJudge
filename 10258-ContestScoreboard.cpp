@@ -48,12 +48,13 @@ int main() {
 
 	// Read cases, then 
 	cin >> cases;
+	// Read empty line
 	getline(cin, s_stream);
 
 	for (int i=0; i<cases; i++) {
 
 		// Each case
-		while (getline(cin, s_stream) && s_stream.size()!=1) {
+		while (getline(cin, s_stream) && s_stream.size()!=0) {
 			stringstream s(s_stream);
 			s >> contestant_id >> problem_id >> time >> c;
 
