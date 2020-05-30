@@ -17,7 +17,6 @@ Análisis asintótico de la solución: Se deberá consignar el costo (en notaci�
 #include <vector>
 
 using namespace std;
-// class MyQueue : public priority_queue {}
 
 class Register {
 public:
