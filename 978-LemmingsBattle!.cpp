@@ -59,7 +59,7 @@ int main() {
 
 	cin >> N;
 
-	for (int i=0; i<N; i++) {
+	for (int i=1; i<=N; i++) {
 		cin >> B >> SG >> SB;
 
 		for (int j=0; j<SG; j++) {
@@ -72,7 +72,7 @@ int main() {
 		}
 
 		// FIGHT TO THE DEAD!
-		while (green_team.size()!=0 && blue_team.size()!=0) {	// At maximun (SG+SB)/B
+		while (!green_team.empty() && !blue_team.empty()) {	// At maximun (SG+SB)/B
 			// It populates the battlefields
 			for (int j=0; j<B; j++) {
 				if (green_team.empty() || blue_team.empty()) break;	// O(1)
@@ -91,7 +91,7 @@ int main() {
 			// Check for survivors! If found, get them to safety, so they can experience the horrors on the battlefield again (if need it)
 			for (auto nurse=battlefield.begin(); nurse!=battlefield.end(); nurse++) {
 				if (nurse->first) green_team.push(nurse->first);			// Green survivor
-				else if (nurse->second) blue_team.push(nurse->second);		// Blue sorvivor
+				else if (nurse->second) blue_team.push(nurse->second);		// Blue survivor
 			}
 			battlefield.clear();
 		}
@@ -100,6 +100,9 @@ int main() {
 		if (green_team.size()) announceWinner(green_win, green_team);
 		else if (blue_team.size()) announceWinner(blue_win, blue_team);
 		else cout << tied << endl;
+
+		// empty line separating cases
+		if (i!=N) cout << endl;
 	}
 
 	return 0;
