@@ -20,12 +20,12 @@ int main() {
 	list<char> input_text;
 	string beiju_output;
 
-	list<char>::iterator text_position = input_text.begin();
 
 	char home_button = '[';
 	char end_button = ']';
 
 	while (getline(cin, input_line)) {
+		list<char>::iterator text_position = input_text.begin();
 		for (auto it=input_line.begin(); it!=input_line.end(); it++) {
 			if (*it == home_button)
 				text_position = input_text.begin();
