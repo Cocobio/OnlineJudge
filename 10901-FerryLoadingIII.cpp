@@ -81,7 +81,7 @@ int main() {
 			if (!ferry_current_side) {
 				// if there are cars waiting
 				if(left_lane[0].get_t() <= current_t) {
-					for (int j=0; j<ferry_n && left_lane.front().get_t()==current_t; j++) {
+					for (int j=0; !left_lane.empty() && j<ferry_n && left_lane.front().get_t()==current_t; j++) {
 						car_i = left_lane.front();
 						left_lane.pop_front();
 						ferry.push_back(car_i);
@@ -92,7 +92,7 @@ int main() {
 					// this would be the next time the ferry will start to cross again
 					current_t = left_lane[0].get_t();
 
-					for (int j=0; j<ferry_n && left_lane.front().get_t()==current_t; j++) {
+					for (int j=0; !left_lane.empty() && j<ferry_n && left_lane.front().get_t()==current_t; j++) {
 						car_i = left_lane.front();
 						left_lane.pop_front();
 						ferry.push_back(car_i);
@@ -103,7 +103,7 @@ int main() {
 			else {
 				// if there are cars waiting
 				if(right_lane[0].get_t() <= current_t) {
-					for (int j=0; j<ferry_n && right_lane.front().get_t()==current_t; j++) {
+					for (int j=0; !right_lane.empty() && j<ferry_n && right_lane.front().get_t()==current_t; j++) {
 						car_i = right_lane.front();
 						right_lane.pop_front();
 						ferry.push_back(car_i);
@@ -114,7 +114,7 @@ int main() {
 					// this would be the next time the ferry will start to cross again
 					current_t = right_lane[0].get_t();
 
-					for (int j=0; j<ferry_n && right_lane.front().get_t()==current_t; j++) {
+					for (int j=0; !right_lane.empty() && j<ferry_n && right_lane.front().get_t()==current_t; j++) {
 						car_i = right_lane.front();
 						right_lane.pop_front();
 						ferry.push_back(car_i);
