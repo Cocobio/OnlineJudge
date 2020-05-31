@@ -26,7 +26,7 @@ bool eval(pair<int,pair<int,int>> a, pair<int,pair<int,int>> b) {
 	return a.second.first>b.second.first || (a.second.first==b.second.first && (a.second.second<b.second.second || (a.second.second==b.second.second && a.first<b.first)));
 };
 
-// No necesito un mapa para el score_board, no tiene sentido dejarlo guardado si voy a ordenarlo despues
+// No necesito un mapa para el score_board, no tiene sentido dejarlo guardado si voy a ordenarlo despues ---- podria ser un unordered_map (reduzco mi acceso de log(n) a const)... aunque considerando que tendre un numero constante de user_id, log(n) tmb seria constante, una grande eso si.
 // podria cambiar el vector de un monton de pares, por un vector<array<int,3>>
 int main() {
 	int cases;
