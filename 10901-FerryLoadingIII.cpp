@@ -36,6 +36,20 @@ public:
 	int get_t() { return car_arrive_t; }
 };
 
+void loadFerry(int &current_t, deque<car> *current_lane, deque<car> &ferry, int ferry_capacity) {
+	car car_i;
+	// if we have to wait, it fastforwards to the new car
+	if ((*current_lane).front().get_t() > current_t) current_t = (*current_lane).front().get_t();
+
+	// load at most ferry_capacity cars. Cars must be waiting or just arrived.
+	for (int i=0; (*current_lane).size() && i<ferry_capacity && (*current_lane).front().get_t()<=current_t; i++) {
+		car_i = (*current_lane).front();
+		(*current_lane).pop_front();
+		ferry.push_back(car_i);
+	}
+
+}
+
 int main() {
 	int cases;
 	int current_t;
@@ -52,7 +66,9 @@ int main() {
 	deque<car> ferry;
 	vector<int> output_cars;
 	bool ferry_current_side;
-	car car_i;
+
+	// reference
+	deque<car> *current_lane, *other_lane;
 
 	cin >> cases;
 
@@ -65,7 +81,7 @@ int main() {
 		for (int j=0; j<cars_n; j++) {
 			cin >> car_t >> car_lane;
 
-			if (car_lane.compare("left"))
+			if (car_lane.compare("left") == 0)
 				left_lane.emplace_back(j,car_t);
 			else // we asume that we only get left or right
 				right_lane.emplace_back(j, car_t);
@@ -76,51 +92,23 @@ int main() {
 		ferry_current_side = false;	// false = left, true = right
 
 		// The ferry will transport them until no more cars to transport
-		while (!left_lane.empty() && !right_lane.empty()) {
-			// Load from left side
-			if (!ferry_current_side) {
-				// if there are cars waiting
-				if(left_lane[0].get_t() <= current_t) {
-					for (int j=0; !left_lane.empty() && j<ferry_n && left_lane.front().get_t()==current_t; j++) {
-						car_i = left_lane.front();
-						left_lane.pop_front();
-						ferry.push_back(car_i);
-					}
-				}
-				// if the next car to arrive at both sides is at the left side (no cars waiting on the other side) 
-				else if (left_lane[0].get_t() <= right_lane[0].get_t()) {
-					// this would be the next time the ferry will start to cross again
-					current_t = left_lane[0].get_t();
-
-					for (int j=0; !left_lane.empty() && j<ferry_n && left_lane.front().get_t()==current_t; j++) {
-						car_i = left_lane.front();
-						left_lane.pop_front();
-						ferry.push_back(car_i);
-					}
-				}
+		while (!left_lane.empty() || !right_lane.empty()) {
+			// We set our current position
+			if (ferry_current_side) {
+				current_lane = &right_lane;
+				other_lane = &left_lane;
 			}
-			// Load from right side
 			else {
-				// if there are cars waiting
-				if(right_lane[0].get_t() <= current_t) {
-					for (int j=0; !right_lane.empty() && j<ferry_n && right_lane.front().get_t()==current_t; j++) {
-						car_i = right_lane.front();
-						right_lane.pop_front();
-						ferry.push_back(car_i);
-					}
-				}
-				// if the next car to arrive at both sides is at the left side (no cars waiting on the other side) 
-				else if (right_lane[0].get_t() <= left_lane[0].get_t()) {
-					// this would be the next time the ferry will start to cross again
-					current_t = right_lane[0].get_t();
-
-					for (int j=0; !right_lane.empty() && j<ferry_n && right_lane.front().get_t()==current_t; j++) {
-						car_i = right_lane.front();
-						right_lane.pop_front();
-						ferry.push_back(car_i);
-					}
-				}
+				current_lane = &left_lane;
+				other_lane = &right_lane;
 			}
+
+			// Load ferry
+			if ((*current_lane).size() && ((*current_lane).front().get_t() <= current_t || ((*other_lane).empty() || (*current_lane).front().get_t() <= (*other_lane).front().get_t())))
+				loadFerry(current_t, current_lane, ferry, ferry_n);
+			else if ((*other_lane).front().get_t()>current_t)
+				current_t = (*other_lane).front().get_t();
+
 
 			// Time that takes the ferry to cross
 			current_t += ferry_t;
@@ -128,14 +116,8 @@ int main() {
 			ferry_current_side = !ferry_current_side;
 
 			// Unload the ferry
-			while (!ferry.empty()) {
-				car_i = ferry.front();
-				ferry.pop_front();
-
-				output_cars[car_i.get_id()] = current_t;
-			}
-			// for (auto it=ferry.begin(), it!=ferry.end(); it++, ferry.pop_front())
-			// 	output_cars[(*it).get_id()] = current_t;
+			for (auto it=ferry.begin(); it!=ferry.end(); it++, ferry.pop_front())
+				output_cars[(*it).get_id()] = current_t;
 		}
 
 		// Output the times when the cars were unloaded on the other side
