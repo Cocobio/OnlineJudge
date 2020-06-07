@@ -43,6 +43,8 @@ using namespace std;
 
 // Function that works as the train chief. It will use the station to sort the vagons on the correct combination. If sucessed all the vagons will be on the line_out.
 // If its not posible, it will clean the station, and leave everything as it is. ** The line_out will not contain all the vagons. **
+// **** Each vagon coming from line in will be processed one unique time from the line in, trasported to the station or the out line.
+// **** Each vagon going inside the station will be processed at most one unique time, if the combination is possible.
 void trainChief(vector<short> &line_in, vector<short> &line_out, stack<short> &station, vector<short> &combination) {	// O(n) where n is the number of vagons.
 	// iterator for input vagons
 	short coach_at_line_in = 0;

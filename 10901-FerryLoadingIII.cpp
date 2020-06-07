@@ -40,7 +40,7 @@ Asymptotic analysis of solution:
 		So we can formulate our complexity as: cases * (1 + cars_n + 1 + cars_n*(2+2*ferry_n)+cars_n) = cases * (2*cars_n*ferry_n + 4*cars_n + 2) 
 		* The amount of iterations from the while on line 27 will decresed on the numbers of cars transported by the ferry, at lines 30 and 35. So the amount of work will be shared.
 		From this we can see that the complexity will be linear on the number of cars. And the sizes of the ferry will take part of the computational load from the while and move it to the loading and unloading of the ferry.
-		** The amount of work on 27 is shared with the amount of work on 30 & 35.
+		** The amount of work on 27 is shared with the amount of work on 30 & 35. BECAUSE EACH CAR WILL BE TRANSPORTED ONE UNIQUE TIME.
 
 		==> O(cases*cars_n), where cases is the number of cases and cars_n is the number of cars that want to cross the river
 
@@ -90,7 +90,6 @@ void loadFerry(int &current_t, deque<car> *current_lane, deque<car> &ferry, int 
 		(*current_lane).pop_front();		// O(1)
 		ferry.push_back(car_i);				// O(1)
 	}
-
 }
 
 int main() {

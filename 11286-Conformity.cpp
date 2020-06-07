@@ -90,7 +90,7 @@ int main() {
 			// Read the five classes
 			for (int i=0; i<5; i++) {	// Runs 5 times (always)
 				cin >> class_id;		// Not specified
-				classes.[i] = class_id;	// O(1)
+				classes[i] = class_id;	// O(1)
 			}
 
 			// Sort the classes so its easy to save the combination
