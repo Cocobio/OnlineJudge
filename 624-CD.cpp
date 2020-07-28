@@ -38,7 +38,6 @@ int main() {
 
 	while (getline(cin, line) && line.size() != 0) {
 		stringstream s(line);
-		// cout << "input: " << line << endl;
 
 		unsigned tape_length;
 		unsigned track_n;
@@ -54,36 +53,37 @@ int main() {
 		unsigned ** table = create_dynamic_programming_table(tape_length+1, track_times.size()+1);
 
 		// Base case for dynamic programming solution
-		for (int i=0; i<=tape_length; i++) table[0][i] = i;
+		for (int i=0; i<=tape_length; i++) table[track_times.size()][i] = i;
 
 		// dynamic programming approach
-		for (unsigned i=1; i<=track_times.size(); i++) {
+		for (int i=track_times.size()-1; i>=0; i--) {
 			for (unsigned j=0; j<=tape_length; j++) {
 				unsigned included;
-				unsigned not_included = table[i-1][j]; 
-				unsigned tape_j = j-track_times[i-1];
+				unsigned not_included = table[i+1][j]; 
+				unsigned tape_j = j-track_times[i];
 				
 				if (tape_j > tape_length) { // it gets cast to a unsigned so it cant be check if is less than 0
 					table[i][j] = not_included;
 				}
 				else {
-					included = table[i-1][tape_j];
+					included = table[i+1][tape_j];
 					table[i][j] = min(included, not_included);
 				}
 			}
 		}
 
 		// Print results
-		cout << "sum:" << tape_length-table[track_times.size()][tape_length];
-		cout << endl;
-		// cout << "tabla:" << endl;
-		// for (int i=0; i<=track_times.size(); i++) {
-		// 	for (int j=0; j<=tape_length; j++)
-		// 		cout << table[i][j] << " ";
-		// 	cout << endl;
-		// }
+		for (int i=0,j=tape_length; i<track_times.size(); i++) {
+			unsigned tape_j = j-track_times[i];
 
-		// cout << endl;
+			if (tape_j<=tape_length && table[i][j] == table[i+1][tape_j]) {
+				cout << track_times[i] << " ";
+				j = tape_j;
+			}
+		}
+
+		cout << "sum:" << tape_length-table[0][tape_length];
+		cout << endl;
 
 		// Clear containers
 		clear_table(table);
