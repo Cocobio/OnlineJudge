@@ -41,8 +41,8 @@ Asymptotic analysis of solution:
 
 		O(input + dynamic_programming_table)
 		O(track_n + tape_length*track_n) = O(tape_length*track_n)
-
 */
+
 #include <iostream>
 #include <string>
 #include <sstream>
