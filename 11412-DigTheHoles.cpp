@@ -25,9 +25,13 @@ Asymptotic analysis of solution:
 				check with first guess => O(1)
 				check with second guess => O(1)
 				if posible set flag and break => O(1)
+
+				performe next permutation => O(2) => O(1)
 			while next permutation => O(4!) => O(24) => O(1)
 
 			if posible break => O(1)
+	
+			performe next permutation => O(3) => O(1)
 		while there are permutations to try => O(15*24) => O(1)
 
 		output result => O(1)
@@ -119,14 +123,14 @@ int main() {
 					posible = true;									// O(1)
 					break;
 				}
-			} while (next_permutation(posible_solution.begin(), posible_solution.end()));	// O(4!) => O(24) => O(1)
+			} while (next_permutation(posible_solution.begin(), posible_solution.end()));	// O(4!) => O(24) => O(1)	+ next_permutation O(2) => O(1)
 
 			// If we found a posible solution, then we set the mask back to the sorted version and break the permutation cycle
 			if (posible) {			// O(1)
 				sort(mask, mask+6);	// O(1)
 				break;
 			}
-		} while(next_permutation(mask, mask+6));											// O(15*24) => O(1)
+		} while(next_permutation(mask, mask+6));											// O(15*24) => O(1)		+ next_permutation O(3) => O(1)
 
 		// Output needed
 		if (posible) cout << "Possible";	// O(1)
